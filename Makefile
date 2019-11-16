@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Ubuntu Jul 25 2014) on Sat Nov 16 08:36:47 2019
+# Created by gmakemake (Ubuntu Jul 25 2014) on Sat Nov 16 09:18:54 2019
 #
 
 #
@@ -49,13 +49,13 @@ CFLAGS = -std=c99 -ggdb -Wall -Wextra -pedantic
 
 
 CPP_FILES =	
-C_FILES =	offspring.c queue.c trimit.c
+C_FILES =	offspring.c queue.c tree_node.c trimit.c
 PS_FILES =	
 S_FILES =	
-H_FILES =	queue.h trimit.h
+H_FILES =	queue.h tree_node.h trimit.h
 SOURCEFILES =	$(H_FILES) $(CPP_FILES) $(C_FILES) $(S_FILES)
 .PRECIOUS:	$(SOURCEFILES)
-OBJFILES =	queue.o trimit.o 
+OBJFILES =	queue.o tree_node.o trimit.o 
 
 #
 # Main targets
@@ -72,6 +72,7 @@ offspring:	offspring.o $(OBJFILES)
 
 offspring.o:	
 queue.o:	
+tree_node.o:	tree_node.h
 trimit.o:	trimit.h
 
 #
