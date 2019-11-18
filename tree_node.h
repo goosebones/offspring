@@ -7,7 +7,8 @@
 typedef struct tree_node_s {
 	char * name;
 	int children;
-	struct tree_node_s * offspring[];
+	int offSize;
+	struct tree_node_s ** offspring;
 } tree_node_t;
 
 tree_node_t * create_node(char * name);

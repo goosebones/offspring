@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Ubuntu Jul 25 2014) on Sat Nov 16 09:18:54 2019
+# Created by gmakemake (Ubuntu Jul 25 2014) on Mon Nov 18 07:21:08 2019
 #
 
 #
@@ -71,7 +71,7 @@ offspring:	offspring.o $(OBJFILES)
 #
 
 offspring.o:	
-queue.o:	
+queue.o:	queue.h tree_node.h
 tree_node.o:	tree_node.h
 trimit.o:	trimit.h
 
