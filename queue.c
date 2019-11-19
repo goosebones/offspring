@@ -28,9 +28,8 @@ node * node_create(void * data) {
 	return n;
 }
 
-queueADT que_create(bool (*equiv)(void * item1, void * item2)) {
+queueADT que_create() {
 	queueStruct * queue = malloc(sizeof(queueStruct));
-	queue->equal = equiv;
 	queue->front = NULL;
 	queue->back = NULL;
 	queue->size = 0;

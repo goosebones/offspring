@@ -8,7 +8,7 @@
 
 typedef struct queueStruct * queueADT;
 
-queueADT que_create(bool (*equiv)(void * item1, void * item2));
+queueADT que_create();
 
 void que_destroy(queueADT queue);
 
