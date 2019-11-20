@@ -5,7 +5,6 @@
 */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "tree_node.h"
@@ -58,16 +57,13 @@ void print_tree(tree_node_t * tree, char * name) {
 		que_dequeue(queue);
 		if (strcmp(node->name, name) == 0) {
 			printf("%s had ", node->name);
+			childPrintCount = 0;
 			for (int i = 0; i < tree->children; i++) {
 				tree_node_t * childNode = tree->offspring[i];
-				print_tree(childNode, childNode->name);
-			}
-		} else {
-			for (int i = 0; i < tree->children; i++) {
-				que_enqueue(queue, tree->offspring[i]);
+				if (childPrintCount == tree->children - 1) {
+					printf("and %s.", childNode->name);
 			}
 		}
-	}
 }
 
 tree_node_t * add_child(tree_node_t * tree, char * parent_name, char * child) {
