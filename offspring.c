@@ -41,19 +41,6 @@ void printPrompt() {
 }
 
 char * getCommand(char * line){
-	/*
-	int commandIdx = 0;
-	for (int i = 0; i < MAX_COMMAND && line[i] != '\0'; i++) {
-		char c = line[i];
-		if (c == ' ') {
-			commandIdx = i;
-			break;
-		} else {
-			commandIdx = i;
-		}
-	}
-	return commandIdx;
-	*/
 	char command[MAX_COMMAND + 1];
 	int i;
 	for (i = 0; i < MAX_COMMAND && line[i] != '\0'; i++) {
@@ -61,13 +48,37 @@ char * getCommand(char * line){
 			break;
 		}
 		command[i] = line[i];
+		line[i] = ' ';
 	}
 	command[i] = '\0';
 
 	char * allocCommand = malloc(strlen(command) * sizeof(char));
 	strcpy(allocCommand, command);
+	printf("line: %s\n", line);
 	printf("command: %s\n", allocCommand);
 	return allocCommand;
+}
+
+void doCommand(char * command, char * args) {
+	if (strcmp(command, "add")) {
+		// add
+	} else if (strcmp(command, "find")) {
+		// find
+	} else if (strcmp(command, "print")) {
+		// print
+	} else if (strcmp(command, "size")) {
+		// size
+	} else if (strcmp(command, "height")) {
+		// height
+	} else if (strcmp(command, "help")) {
+		// help
+	} else if (strcmp(command, "init")) {
+		// init
+	} else if (strcmp(command, "quit")) {
+		// quit
+	} else {
+		// unknown
+	}
 }
 
 void entryLoop() {
@@ -99,18 +110,14 @@ void entryLoop() {
 
 		// trim start and end whitespace
 		char * trimmed = trim(line);
-		/*
-		// get index that command ends at
-		int commandIdx = getCommandIdx(trimmed);
-
-		// make command string
-		char command[commandIdx + 2];
-		strncpy(command, trimmed, commandIdx + 1);
-		command[commandIdx + 2] = '\0';
-		*/
-
-
+		// gets command in a molloced string
+		// trimmed is modefied to get more spaces
 		char * command = getCommand(trimmed);
+		// put args into malloced string and free line
+		char * commandArgs = trim(line);
+		free(line);
+
+		doCommand(command, commandArgs);
 	}
 }
 
