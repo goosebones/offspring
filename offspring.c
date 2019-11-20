@@ -10,6 +10,14 @@
 #include <stdio.h>
 #include <errno.h>
 
+#define MAX_LINE 1024
+
+void interpLine(char * line) {
+	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
+		//TODO partition inbetween ','
+	}
+}
+
 void parseFile(char * filename) {
 	errno = 0;
 	FILE * file = fopen(filename, "r");
@@ -18,9 +26,40 @@ void parseFile(char * filename) {
 		return;
 	}
 
-	char line[1024];
+	char line[MAX_LINE];
 	while (fgets(line, sizeof(line), file)) {
-		printf("line: %s", line);
+		interpLine(line);
+	}
+}
+
+void printPrompt() {
+	printf("offspring> ");
+}
+
+void entryLoop() {
+	char buff[MAX_LINE + 1];\
+	char * line;
+	printPrompt();
+	while ((line = fgets(buff, MAX_LINE, stdin)) != NULL) {
+		/*
+		// test if input is too long
+		int length = strlen(line);
+		if (line[length - 1] != '\n') {
+			fprintf(stderr, "Input line too long\n");
+
+			char buff2[10000];
+			fgets(buff2, 9999, stdin);
+			printPrompt();
+			continue;
+		}
+		*/
+
+		/*
+		// line cannot be empty
+		if (line[0] != '\0') {
+			//token(line);
+		}
+		*/
 	}
 }
 
@@ -35,6 +74,8 @@ int main(int argc, char * argv[]) {
 			// TODO do something with file
 		}
 	}
+
+	entryLoop();
 
 	return EXIT_SUCCESS;
 }
