@@ -9,8 +9,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
+
+#include "trimit.h"
 
 #define MAX_LINE 1024
+#define MAX_COMMAND 6
 
 void interpLine(char * line) {
 	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
@@ -34,6 +38,36 @@ void parseFile(char * filename) {
 
 void printPrompt() {
 	printf("offspring> ");
+}
+
+char * getCommand(char * line){
+	/*
+	int commandIdx = 0;
+	for (int i = 0; i < MAX_COMMAND && line[i] != '\0'; i++) {
+		char c = line[i];
+		if (c == ' ') {
+			commandIdx = i;
+			break;
+		} else {
+			commandIdx = i;
+		}
+	}
+	return commandIdx;
+	*/
+	char command[MAX_COMMAND + 1];
+	int i;
+	for (i = 0; i < MAX_COMMAND && line[i] != '\0'; i++) {
+		if (line[i] == ' ') {
+			break;
+		}
+		command[i] = line[i];
+	}
+	command[i] = '\0';
+
+	char * allocCommand = malloc(strlen(command) * sizeof(char));
+	strcpy(allocCommand, command);
+	printf("command: %s\n", allocCommand);
+	return allocCommand;
 }
 
 void entryLoop() {
@@ -60,6 +94,23 @@ void entryLoop() {
 			//token(line);
 		}
 		*/
+
+
+
+		// trim start and end whitespace
+		char * trimmed = trim(line);
+		/*
+		// get index that command ends at
+		int commandIdx = getCommandIdx(trimmed);
+
+		// make command string
+		char command[commandIdx + 2];
+		strncpy(command, trimmed, commandIdx + 1);
+		command[commandIdx + 2] = '\0';
+		*/
+
+
+		char * command = getCommand(trimmed);
 	}
 }
 
