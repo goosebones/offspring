@@ -23,7 +23,15 @@ static tree_node_t * tree = NULL;
 
 void interpLine(char * line) {
 	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
-		//TODO partition inbetween ','
+		int argCount = tokenCount(line, ',');
+		char ** tokens = tokenArray(line, ",", argCount);
+		if (tree == NULL) {
+			tree = create_node(tokens[0]);
+		}
+		for (int i = 1; i < argCount; i++) {
+			add_child(tree, tokens[0], tokens[i]);
+		}
+		freeTokenArray(tokens, argCount);
 	}
 }
 
