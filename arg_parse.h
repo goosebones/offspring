@@ -7,3 +7,5 @@
 int tokenCount(char * string, char del);
 
 char ** tokenArray(char * string, char * del, int elements);
+
+void freeTokenArray(char ** tokens, int tokenCount);

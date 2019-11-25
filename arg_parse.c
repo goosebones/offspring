@@ -18,7 +18,8 @@ int tokenCount(char * string, char del) {
 			count++;
 		}
 	}
-	return count + 1;
+	count++;
+	return count;
 }
 
 
@@ -48,6 +49,13 @@ char ** tokenArray(char * string, char * del, int elements) {
 	return tokens;
 }
 
+void freeTokenArray(char ** tokens, int tokenCount) {
+	for (int i = 0; i < tokenCount; i++) {
+		free(tokens[i]);
+	}
+	free(tokens);
+}
+
 
 int main() {
 	char * thad = "thadeous, tabo  nia, jones, jenkins, jr 3";
@@ -57,5 +65,6 @@ int main() {
 	printf("tokens[0]: %s\n", tokens[0]);
 	printf("tokens[1]: %s\n", tokens[1]);
 	printf("tokens[4]: %s\n", tokens[4]);
+	freeTokenArray(tokens, i);
 	return 0;
 }
