@@ -1,5 +1,5 @@
 /*
-* node for a queue data structure
+* node to represent entry in family tree
 *
 * @author Gunther Kroth   gdk6217@rit.edu
 */

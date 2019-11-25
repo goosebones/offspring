@@ -56,7 +56,7 @@ void freeTokenArray(char ** tokens, int tokenCount) {
 	free(tokens);
 }
 
-
+/*
 int main() {
 	char * thad = "thadeous, tabo  nia, jones, jenkins, jr 3";
 	int i = tokenCount(thad, ',');
@@ -68,3 +68,4 @@ int main() {
 	freeTokenArray(tokens, i);
 	return 0;
 }
+*/

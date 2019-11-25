@@ -10,11 +10,16 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "trimit.h"
+#include "tree_node.h"
+#include "arg_parse.h"
 
 #define MAX_LINE 1024
 #define MAX_COMMAND 6
+
+static tree_node_t * tree = NULL;
 
 void interpLine(char * line) {
 	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
@@ -40,6 +45,19 @@ void printPrompt() {
 	printf("offspring> ");
 }
 
+void printHelp() {
+	printf( "User Commands for offspring:\n"
+		"add parent-name, child-name # find parent and add child.\n"
+		"find name	# search and print name and children if name is found.\n"
+		"print [name]	# breadth first traversal of offspring from name.\n"
+		"size [name]	# count members in the [sub]tree.\n"
+		"height [name]	# return the height of [sub]tree.\n"
+		"init		# delete current tree and restart with an empty tree.\n"
+		"help		# print this information.\n"
+		"quit		# delete current tree and end program.\n"
+		);
+}
+
 char * getCommand(char * line){
 	char command[MAX_COMMAND + 1];
 	int i;
@@ -54,31 +72,46 @@ char * getCommand(char * line){
 
 	char * allocCommand = malloc(strlen(command) * sizeof(char));
 	strcpy(allocCommand, command);
-	printf("line: %s\n", line);
-	printf("command: %s\n", allocCommand);
 	return allocCommand;
 }
 
+bool commandIs(char * commandName, char * commandInput) {
+	if (strcmp(commandName, commandInput) == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void doCommand(char * command, char * args) {
-	if (strcmp(command, "add")) {
-		// add
-	} else if (strcmp(command, "find")) {
-		// find
-	} else if (strcmp(command, "print")) {
-		// print
-	} else if (strcmp(command, "size")) {
+	int argCount = tokenCount(args, ',');
+	char ** tokens = tokenArray(args, ",", argCount);
+	if (commandIs("add", command)) {
+		if (tree == NULL) {
+			tree = create_node(tokens[0]);
+		}
+		for (int i = 1; i < argCount; i++) {
+			add_child(tree, tokens[0], tokens[i]);
+		}
+	} else if (commandIs("find", command)) {
+		find_node(tree, tokens[0]);
+	} else if (commandIs("print", command)) {
+		print_tree(tree, tokens[0]);
+	} else if (commandIs("size", command)) {
 		// size
-	} else if (strcmp(command, "height")) {
+	} else if (commandIs("height", command)) {
 		// height
-	} else if (strcmp(command, "help")) {
-		// help
-	} else if (strcmp(command, "init")) {
-		// init
-	} else if (strcmp(command, "quit")) {
-		// quit
+	} else if (commandIs("help", command)) {
+		printHelp();
+	} else if (commandIs("init", command)) {
+		destroy_tree(tree);
+	} else if (commandIs("quit", command)) {
+		destroy_tree(tree);
+		//exit(EXIT_SUCCESS);
 	} else {
 		// unknown
 	}
+	freeTokenArray(tokens, argCount);
 }
 
 void entryLoop() {
@@ -110,14 +143,19 @@ void entryLoop() {
 
 		// trim start and end whitespace
 		char * trimmed = trim(line);
+
+		printf("+ %s\n\n", trimmed);
 		// gets command in a molloced string
 		// trimmed is modefied to get more spaces
 		char * command = getCommand(trimmed);
 		// put args into malloced string and free line
 		char * commandArgs = trim(line);
-		free(line);
 
 		doCommand(command, commandArgs);
+
+		free(command);
+
+		printPrompt();
 	}
 }
 
