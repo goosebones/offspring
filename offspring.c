@@ -23,13 +23,13 @@ static tree_node_t * tree = NULL;
 
 void interpLine(char * line) {
 	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
+		if (i == 1) {
+			//TODO possibility of a 1 person tree from the first line
+		}
 		int argCount = tokenCount(line, ',');
 		char ** tokens = tokenArray(line, ",", argCount);
-		if (tree == NULL) {
-			tree = create_node(tokens[0]);
-		}
 		for (int i = 1; i < argCount; i++) {
-			add_child(tree, tokens[0], tokens[i]);
+			tree = add_child(tree, tokens[0], tokens[i]);
 		}
 		freeTokenArray(tokens, argCount);
 	}
@@ -95,11 +95,8 @@ void doCommand(char * command, char * args) {
 	int argCount = tokenCount(args, ',');
 	char ** tokens = tokenArray(args, ",", argCount);
 	if (commandIs("add", command)) {
-		if (tree == NULL) {
-			tree = create_node(tokens[0]);
-		}
 		for (int i = 1; i < argCount; i++) {
-			add_child(tree, tokens[0], tokens[i]);
+			tree = add_child(tree, tokens[0], tokens[i]);
 		}
 	} else if (commandIs("find", command)) {
 		find_node(tree, tokens[0]);

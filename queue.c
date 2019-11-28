@@ -12,17 +12,16 @@
 typedef struct node {
 	void * data;
 	struct node * next;
-} node;
+} queueNode;
 
 typedef struct queueStruct {
-	bool (*equal)();
 	void * front;
 	void * back;
 	int size;
 } queueStruct;
 
-node * node_create(void * data) {
-	node * n = malloc(sizeof(node));
+queueNode * node_create(void * data) {
+	queueNode * n = malloc(sizeof(queueNode));
 	n->data = data;
 	n->next = NULL;
 	return n;
@@ -42,20 +41,20 @@ void que_destroy(queueADT queue) {
 }
 
 void que_clear(queueADT queue) {
-	node * n = queue->front;
+	queueNode * n = queue->front;
 	while (n != NULL) {
 		que_dequeue(queue);
 	}
 }
 
 void que_enqueue(queueADT queue, void * data) {
-	node * newNode = node_create(data);
+	queueNode * newNode = node_create(data);
 
 	if (queue->back == NULL) {
 		queue->front = newNode;
 		queue->back = newNode;
 	} else {
-		node * back = queue->back;
+		queueNode * back = queue->back;
 		back->next = newNode;
 		back = newNode;
 	}
@@ -67,7 +66,7 @@ void que_dequeue(queueADT queue) {
 		return;
 	}
 
-	node * deq = queue->front;
+	queueNode * deq = queue->front;
 	queue->front = deq->next;
 
 	if (queue->front == NULL) {
@@ -79,7 +78,8 @@ void que_dequeue(queueADT queue) {
 }
 
 const void * que_front(const queueADT queue) {
-	return queue->front;
+	queueNode * n = queue->front;
+	return n->data;
 }
 
 size_t que_size(queueADT queue) {

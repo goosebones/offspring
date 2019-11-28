@@ -18,6 +18,12 @@ int tokenCount(char * string, char del) {
 			count++;
 		}
 	}
+	//if (count == 0) {
+	//	return 0;
+	//} else {
+	//	count++;
+	//	return count;
+	//}
 	count++;
 	return count;
 }
@@ -28,8 +34,18 @@ char ** tokenArray(char * string, char * del, int elements) {
 	// use strtok to get to split on thing
 	// take that string and use trim
 	// put trimmed string into char[]
+	//if (elements == 0) {
+	//	return NULL;
+	//}
 	char ** tokens = malloc(elements * sizeof(char *));
 	int tokensIdx = 0;
+
+	if ((elements == 1) && (strcmp(string, "") == 0)) {
+		char * emptyString = malloc(strlen(string) * sizeof(char *));
+		strcpy(emptyString, string);
+		tokens[0] = emptyString;
+		return tokens;
+	}
 
 	char stringCopy[strlen(string)];
 	strcpy(stringCopy, string);
