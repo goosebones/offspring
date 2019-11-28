@@ -112,7 +112,9 @@ void doCommand(char * command, char * args) {
 		destroy_tree(tree);
 	} else if (commandIs("quit", command)) {
 		destroy_tree(tree);
-		//exit(EXIT_SUCCESS);
+		freeTokenArray(tokens, argCount);
+		free(command);
+		exit(EXIT_SUCCESS);
 	} else {
 		// unknown
 	}
