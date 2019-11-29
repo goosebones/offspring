@@ -19,8 +19,8 @@ tree_node_t * create_node(char * name) {
 	strcpy(n->name, name);
 	n->children = 0;
 	n->offSize = INIT_CHILDREN_COUNT;
-	tree_node_t ** children = malloc(INIT_CHILDREN_COUNT * sizeof(tree_node_t));
-	n->offspring = children;
+	tree_node_t ** offspring = malloc(INIT_CHILDREN_COUNT * sizeof(tree_node_t));
+	n->offspring = offspring;
 	return n;
 }
 
@@ -93,7 +93,8 @@ void print_tree(tree_node_t * tree, char * name) {
 			}
 		} else {
 			for (int i = 0; i < tree->children; i++) {
-				que_enqueue(queue, tree->offspring[i]);
+				//que_enqueue(queue, tree->offspring[i]);
+				print_tree(tree->offspring[i], name);
 			}
 		}
 	}
