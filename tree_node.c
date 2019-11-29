@@ -37,6 +37,33 @@ void destroy_tree(tree_node_t * tree) {
 	free(tree);
 }
 
+static void print_offspring_line(tree_node_t * treeNode) {
+	printf("%s had ", treeNode->name);
+	if (treeNode->children == 0) {
+		printf("no offspring");
+	} else if (treeNode->children == 1) {
+		tree_node_t * childNode = treeNode->offspring[0];
+		printf("%s", childNode->name);
+	} else if (treeNode->children == 2) {
+		tree_node_t * childNode1 = treeNode->offspring[0];
+		tree_node_t * childNode2 = treeNode->offspring[1];
+		printf("%s and %s", childNode1->name, childNode2->name);
+	} else {
+		for (int i = 0; i < treeNode->children; i++) {
+			tree_node_t * childNode = treeNode->offspring[i];
+			printf("%s", childNode->name);
+			if (i < (treeNode->children - 2)) {
+				printf(", ");
+			} else if (i < (treeNode->children - 1)) {
+				printf(" and ");
+			} else {
+				;
+			}
+		}
+	}
+	printf(".\n");
+}
+
 tree_node_t * find_node(tree_node_t * tree, char * name) {
 	queueADT queue = que_create();
 	que_enqueue(queue, tree);
@@ -47,6 +74,7 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 		que_dequeue(queue);
 		//TODO idk what is happening here
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
+			/*
 			printf("%s had ", treeNode->name);
 			if (treeNode->children == 0) {
 				printf("no offspring.");
@@ -57,6 +85,8 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 				}
 			}
 			printf("\n");
+			*/
+			print_offspring_line(treeNode);
 			return treeNode;
 		} else {
 			for (int i = 0; i < treeNode->children; i++) {
@@ -77,6 +107,7 @@ void print_tree(tree_node_t * tree, char * name) {
 		que_dequeue(queue);
 		//int nameLength = strlen(node->name);
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
+			/*
 			printf("%s had ", treeNode->name);
 			if (tree->children == 0) {
 				printf("no offspring.");
@@ -87,6 +118,8 @@ void print_tree(tree_node_t * tree, char * name) {
 				}
 			}
 			printf("\n");
+			*/
+			print_offspring_line(treeNode);
 			for (int i = 0; i < tree->children; i++) {
 				tree_node_t * childNode = tree->offspring[i];
 				print_tree(childNode, childNode->name);
