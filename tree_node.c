@@ -48,19 +48,19 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 		//TODO idk what is happening here
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
 			printf("%s had ", treeNode->name);
-			if (tree->children == 0) {
+			if (treeNode->children == 0) {
 				printf("no offspring.");
 			} else {
-				for (int i = 0; i < tree->children; i++) {
-					tree_node_t * childNode = tree->offspring[i];
+				for (int i = 0; i < treeNode->children; i++) {
+					tree_node_t * childNode = treeNode->offspring[i];
 					printf("%s, ", childNode->name);
 				}
 			}
 			printf("\n");
 			return treeNode;
 		} else {
-			for (int i = 0; i < tree->children; i++) {
-				que_enqueue(queue, tree->offspring[i]);
+			for (int i = 0; i < treeNode->children; i++) {
+				que_enqueue(queue, treeNode->offspring[i]);
 			}
 		}
 	}
