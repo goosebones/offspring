@@ -15,6 +15,8 @@ tree_node_t * create_node(char * name);
 
 void destroy_tree(tree_node_t * tree);
 
+void print_offspring_line(tree_node_t * tree);
+
 tree_node_t * find_node(tree_node_t * tree, char * name);
 
 void print_tree(tree_node_t * tree, char * name);

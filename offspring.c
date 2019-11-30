@@ -99,7 +99,8 @@ void doCommand(char * command, char * args) {
 			tree = add_child(tree, tokens[0], tokens[i]);
 		}
 	} else if (commandIs("find", command)) {
-		find_node(tree, tokens[0]);
+		tree_node_t * treeNode = find_node(tree, tokens[0]);
+		print_offspring_line(treeNode);
 	} else if (commandIs("print", command)) {
 		print_tree(tree, tokens[0]);
 	} else if (commandIs("size", command)) {
