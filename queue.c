@@ -15,8 +15,8 @@ typedef struct node {
 } queueNode;
 
 typedef struct queueStruct {
-	void * front;
-	void * back;
+	queueNode * front;
+	queueNode * back;
 	int size;
 } queueStruct;
 
@@ -52,12 +52,11 @@ void que_enqueue(queueADT queue, void * data) {
 
 	if (queue->back == NULL) {
 		queue->front = newNode;
-		queue->back = newNode;
 	} else {
 		queueNode * back = queue->back;
 		back->next = newNode;
-		back = newNode;
 	}
+	queue->back = newNode;
 	queue->size++;
 }
 
@@ -78,6 +77,9 @@ void que_dequeue(queueADT queue) {
 }
 
 const void * que_front(const queueADT queue) {
+	if (queue->front == NULL) {
+		return NULL;
+	}
 	queueNode * n = queue->front;
 	return n->data;
 }

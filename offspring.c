@@ -22,17 +22,12 @@
 static tree_node_t * tree = NULL;
 
 void interpLine(char * line) {
-	for (int i = 0; line[i] != '\0' && line[i] != '\n'; i++) {
-		if (i == 1) {
-			//TODO possibility of a 1 person tree from the first line
-		}
-		int argCount = tokenCount(line, ',');
-		char ** tokens = tokenArray(line, ",", argCount);
-		for (int i = 1; i < argCount; i++) {
-			tree = add_child(tree, tokens[0], tokens[i]);
-		}
-		freeTokenArray(tokens, argCount);
+	int argCount = tokenCount(line, ',');
+	char ** tokens  = tokenArray(line, ",", argCount);
+	for (int i = 1; i < argCount; i++) {
+		tree = add_child(tree, tokens[0], tokens[i]);
 	}
+	freeTokenArray(tokens, argCount);
 }
 
 void parseFile(char * filename) {
