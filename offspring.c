@@ -95,7 +95,11 @@ void doCommand(char * command, char * args) {
 		}
 	} else if (commandIs("find", command)) {
 		tree_node_t * treeNode = find_node(tree, tokens[0]);
-		print_offspring_line(treeNode);
+		if (treeNode == NULL) {
+			fprintf(stderr, "Error: '%s' not found.\n", tokens[0]);
+		} else {
+			print_offspring_line(treeNode);
+		}
 	} else if (commandIs("print", command)) {
 		print_tree(tree, tokens[0]);
 	} else if (commandIs("size", command)) {
@@ -106,13 +110,14 @@ void doCommand(char * command, char * args) {
 		printHelp();
 	} else if (commandIs("init", command)) {
 		destroy_tree(tree);
+		tree = NULL;
 	} else if (commandIs("quit", command)) {
 		destroy_tree(tree);
 		freeTokenArray(tokens, argCount);
 		free(command);
 		exit(EXIT_SUCCESS);
 	} else {
-		// unknown
+		fprintf(stderr, "Unknown Command: %s\n", command);
 	}
 	freeTokenArray(tokens, argCount);
 }

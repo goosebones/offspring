@@ -65,6 +65,9 @@ void print_offspring_line(tree_node_t * treeNode) {
 }
 
 tree_node_t * find_node(tree_node_t * tree, char * name) {
+	if (tree == NULL) {
+		return NULL;
+	}
 	queueADT queue = que_create();
 	que_enqueue(queue, tree);
 	while(que_size(queue) > 0) {
@@ -85,6 +88,14 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 }
 
 void print_tree(tree_node_t * tree, char * name) {
+	if (tree == NULL) {
+		fprintf(stderr, "Error: tree is empty.\n");
+		return;
+	}
+	if (find_node(tree, name) == NULL) {
+		fprintf(stderr, "Error: '%s' not found.\n", name);
+		return;
+	}
 	queueADT queue = que_create();
 	que_enqueue(queue, tree);
 	while(que_size(queue) > 0) {
@@ -94,18 +105,6 @@ void print_tree(tree_node_t * tree, char * name) {
 		que_dequeue(queue);
 		//int nameLength = strlen(node->name);
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
-			/*
-			printf("%s had ", treeNode->name);
-			if (tree->children == 0) {
-				printf("no offspring.");
-			} else {
-				for (int i = 0; i < tree->children; i++) {
-					tree_node_t * childNode = tree->offspring[i];
-					printf("%s, ", childNode->name);
-				}
-			}
-			printf("\n");
-			*/
 			print_offspring_line(treeNode);
 			for (int i = 0; i < tree->children; i++) {
 				tree_node_t * childNode = tree->offspring[i];
