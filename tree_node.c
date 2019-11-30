@@ -166,3 +166,13 @@ tree_node_t * add_child(tree_node_t * tree, char * parent_name, char * child_nam
 	}
 	return NULL;
 }
+
+
+
+int get_tree_size(tree_node_t * treeNode) {
+	int size = 1;
+	for (int i = 0; i < treeNode->children; i++) {
+		size += get_tree_size(treeNode->offspring[i]);
+	}
+	return size;
+}

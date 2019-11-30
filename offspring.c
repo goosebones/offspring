@@ -103,7 +103,17 @@ void doCommand(char * command, char * args) {
 	} else if (commandIs("print", command)) {
 		print_tree(tree, tokens[0]);
 	} else if (commandIs("size", command)) {
-		// size
+		tree_node_t * treeNode = find_node(tree, tokens[0]);
+		int size;
+		if (argCount == 0) {
+			size = get_tree_size(tree);
+			printf("size: %d\n", size);
+		} else if (treeNode == NULL) {
+			fprintf(stderr, "Error: '%s' not found.\n", tokens[0]);
+		} else {
+			size = get_tree_size(treeNode);
+			printf("size: %d\n", size);
+		}
 	} else if (commandIs("height", command)) {
 		// height
 	} else if (commandIs("help", command)) {
