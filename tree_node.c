@@ -176,3 +176,22 @@ int get_tree_size(tree_node_t * treeNode) {
 	}
 	return size;
 }
+
+static int height_helper(tree_node_t * treeNode) {
+	int maxDepth = 0;
+	for (int i = 0; i < treeNode->children; i++) {
+		int newDepth = height_helper(treeNode->offspring[i]);
+		maxDepth = (maxDepth > newDepth ? maxDepth : newDepth);
+	}
+	return maxDepth + 1;
+
+}
+
+
+int get_tree_height(tree_node_t * treeNode) {
+	if (treeNode == NULL) {
+		return -1;
+	}
+	int height = height_helper(treeNode);
+	return height - 1;
+}
