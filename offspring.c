@@ -22,6 +22,7 @@
 static tree_node_t * tree = NULL;
 
 void interpLine(char * line) {
+	//TODO check for single name on first line
 	int argCount = tokenCount(line, ',');
 	char ** tokens  = tokenArray(line, ",", argCount);
 	for (int i = 1; i < argCount; i++) {
@@ -42,6 +43,7 @@ void parseFile(char * filename) {
 	while (fgets(line, sizeof(line), file)) {
 		interpLine(line);
 	}
+	fclose(file);
 }
 
 void printPrompt() {
@@ -73,7 +75,7 @@ char * getCommand(char * line){
 	}
 	command[i] = '\0';
 
-	char * allocCommand = malloc(strlen(command) * sizeof(char));
+	char * allocCommand = malloc(strlen(command) * sizeof(char) + 1);
 	strcpy(allocCommand, command);
 	return allocCommand;
 }
@@ -193,7 +195,6 @@ int main(int argc, char * argv[]) {
 		} else {
 			char * filename = argv[1];
 			parseFile(filename);
-			// TODO do something with file
 		}
 	}
 

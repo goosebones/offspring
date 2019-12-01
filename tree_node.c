@@ -15,7 +15,7 @@
 
 tree_node_t * create_node(char * name) {
 	tree_node_t * n = malloc(sizeof(tree_node_t));
-	n->name = malloc(strlen(name) * sizeof(char));
+	n->name = malloc(strlen(name) * sizeof(char) + 1);
 	strcpy(n->name, name);
 	n->children = 0;
 	n->offSize = INIT_CHILDREN_COUNT;
@@ -75,8 +75,8 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 		//tree_node_t * treeNode = (tree_node_t*)queueNode->data;
 		tree_node_t * treeNode = (tree_node_t*)que_front(queue);
 		que_dequeue(queue);
-		//TODO idk what is happening here
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
+			que_destroy(queue);
 			return treeNode;
 		} else {
 			for (int i = 0; i < treeNode->children; i++) {
@@ -84,18 +84,56 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 			}
 		}
 	}
+	que_destroy(queue);
 	return NULL;
+}
+
+void print_tree_help(tree_node_t * tree) {
+	for (int i = 0; i < tree->children; i++) {
+		tree_node_t * childNode = tree->offspring[i];
+		print_offspring_line(childNode);
+	}
+	for (int j = 0; j < tree->children; j++) {
+		tree_node_t * childNode2 = tree->offspring[j];
+		print_tree_help(childNode2);
+	}
 }
 
 void print_tree(tree_node_t * tree, char * name) {
 	if (tree == NULL) {
-		fprintf(stderr, "Error: tree is empty.\n");
+		fprintf(stderr, "Error: '%s' not found.\n", name);
 		return;
 	}
 	if (find_node(tree, name) == NULL) {
 		fprintf(stderr, "Error: '%s' not found.\n", name);
 		return;
 	}
+
+	queueADT queue = que_create();
+	que_enqueue(queue, tree);
+	while(que_size(queue) > 0) {
+		tree = (tree_node_t*)que_front(queue);
+		que_dequeue(queue);
+		if ( (strcmp(tree->name, name) == 0) || (strcmp(name, "") == 0)) {
+			print_offspring_line(tree);
+			print_tree_help(tree);
+			/*
+			for (int i = 0; i < tree->children; i++) {
+				tree_node_t * childNode = tree->offspring[i];
+				//print_tree(childNode, childNode->name);
+				print_offspring_line(childNode);
+			}
+			*/
+		} else {
+			for (int i = 0; i < tree->children; i++) {
+				tree_node_t * childNode = tree->offspring[i];
+				que_enqueue(queue, childNode);
+			}
+		}
+	}
+
+
+	/*
 	queueADT queue = que_create();
 	que_enqueue(queue, tree);
 	while(que_size(queue) > 0) {
@@ -103,10 +141,15 @@ void print_tree(tree_node_t * tree, char * name) {
 		//tree_node_t * treeNode = (tree_node_t*)queueNode->data;
 		tree_node_t * treeNode = (tree_node_t*)que_front(queue);
 		que_dequeue(queue);
-		//int nameLength = strlen(node->name);
 		if ((strcmp(treeNode->name, name) == 0) || (strcmp(name, "") == 0)) {
 			print_offspring_line(treeNode);
+
 			for (int i = 0; i < tree->children; i++) {
+				tree_node_t * childNode = tree->offspring[i];
+				print_tree(childNode, childNode->name);
+			}
+
+			for (int i = 0; i < treeNode->children; i++) {
 				tree_node_t * childNode = tree->offspring[i];
 				print_tree(childNode, childNode->name);
 			}
@@ -117,6 +160,8 @@ void print_tree(tree_node_t * tree, char * name) {
 			}
 		}
 	}
+	*/
+	que_destroy(queue);
 }
 
 void insert_offspring(tree_node_t * parentNode, tree_node_t * childNode) {
@@ -146,9 +191,9 @@ tree_node_t * add_child(tree_node_t * tree, char * parent_name, char * child_nam
 		if (strcmp(tree->name, child_name) == 0) {
 			tree_node_t * newRoot = create_node(parent_name);
 			insert_offspring(newRoot, tree);
-			return tree;
+			return newRoot;
 		} else {
-			fprintf(stderr, "Error: %s not found in tree and %s is not the root.", parent_name, child_name);
+			fprintf(stderr, "Error: '%s' not found in tree and '%s' is not the root.\n", parent_name, child_name);
 			return tree;
 		}
 	} else {
@@ -156,7 +201,7 @@ tree_node_t * add_child(tree_node_t * tree, char * parent_name, char * child_nam
 			tree_node_t * currentChildNode = parentNode->offspring[i];
 			char * currentChildName = currentChildNode->name;
 			if (strcmp(currentChildName, child_name) == 0) {
-				fprintf(stderr, "Error: %s is already a child of %s.", child_name, parent_name);
+				fprintf(stderr, "Error: %s is already a child of %s.\n", child_name, parent_name);
 				return tree;
 			}
 		}

@@ -41,7 +41,7 @@ char ** tokenArray(char * string, char * del, int elements) {
 	int tokensIdx = 0;
 
 	if ((elements == 1) && (strcmp(string, "") == 0)) {
-		char * emptyString = malloc(strlen(string) * sizeof(char *));
+		char * emptyString = malloc(strlen(string) * sizeof(char *) + 1);
 		strcpy(emptyString, string);
 		tokens[0] = emptyString;
 		return tokens;
@@ -56,7 +56,7 @@ char ** tokenArray(char * string, char * del, int elements) {
 			exit(EXIT_FAILURE);
 		}
 		char * trimmed = trim(token);
-		char * final = malloc(strlen(trimmed) * sizeof(char *));
+		char * final = malloc(strlen(trimmed) * sizeof(char *) + 1);
 		strcpy(final, trimmed);
 		tokens[tokensIdx] = final;
 		tokensIdx++;

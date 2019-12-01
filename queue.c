@@ -44,6 +44,7 @@ void que_clear(queueADT queue) {
 	queueNode * n = queue->front;
 	while (n != NULL) {
 		que_dequeue(queue);
+		n = queue->front;
 	}
 }
 
