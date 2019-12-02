@@ -41,6 +41,13 @@ void interpLine(char * line) {
 	freeTokenArray(tokens, argCount);
 }
 
+/*
+* create a tree with one person in it
+* to be used only in file-input mode
+*	where the first line has only one person
+*
+* @param line  input line from user provided file
+*/
 void onePersonTree(char * line) {
 	int argCount = tokenCount(line, ',');
 	char ** tokens = tokenArray(line, ",", argCount);
@@ -64,11 +71,17 @@ void parseFile(char * filename) {
 	char line[MAX_LINE];
 	int lineNumber = 1;
 	while (fgets(line, sizeof(line), file)) {
-		printf("line:%s\n", line);
+		// ignore empty lines
+		if (strcmp(line, "\n") == 0) {
+			continue;
+		}
+		// check for first line with one person
 		if (lineNumber == 1) {
 			int argCount = tokenCount(line, ',');
+			// one person
 			if (argCount == 1) {
 				onePersonTree(line);
+			// regular line
 			} else {
 				interpLine(line);
 			}
