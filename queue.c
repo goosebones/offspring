@@ -9,24 +9,35 @@
 #include "queue.h"
 #include "tree_node.h"
 
+
+/* queue nodes */
 typedef struct node {
 	void * data;
 	struct node * next;
 } queueNode;
 
+/* queue struct */
 typedef struct queueStruct {
 	queueNode * front;
 	queueNode * back;
 	int size;
 } queueStruct;
 
-queueNode * node_create(void * data) {
+/*
+* create a new node
+* @param data  pointer to data
+* @return pointer to newly allocated node
+*/
+static queueNode * node_create(void * data) {
 	queueNode * n = malloc(sizeof(queueNode));
 	n->data = data;
 	n->next = NULL;
 	return n;
 }
 
+/*
+* create a new queue
+*/
 queueADT que_create() {
 	queueStruct * queue = malloc(sizeof(queueStruct));
 	queue->front = NULL;
@@ -35,11 +46,19 @@ queueADT que_create() {
 	return queue;
 }
 
+/*
+* destroy a queue
+* free itself and all of its nodes
+*/
 void que_destroy(queueADT queue) {
 	que_clear(queue);
 	free(queue);
 }
 
+/*
+* empty out a queue
+* free just its nodes
+*/
 void que_clear(queueADT queue) {
 	queueNode * n = queue->front;
 	while (n != NULL) {
@@ -48,9 +67,12 @@ void que_clear(queueADT queue) {
 	}
 }
 
+/*
+* add a new node to the back of a queue
+*/
 void que_enqueue(queueADT queue, void * data) {
 	queueNode * newNode = node_create(data);
-
+	// if queue is empty
 	if (queue->back == NULL) {
 		queue->front = newNode;
 	} else {
@@ -61,7 +83,11 @@ void que_enqueue(queueADT queue, void * data) {
 	queue->size++;
 }
 
+/*
+* removed a node from the front of a queue
+*/
 void que_dequeue(queueADT queue) {
+	// if queue is empty
 	if (queue->front == NULL) {
 		return;
 	}
@@ -77,7 +103,11 @@ void que_dequeue(queueADT queue) {
 	queue->size--;
 }
 
+/*
+* return from node of a queue
+*/
 const void * que_front(const queueADT queue) {
+	// if queue is empty
 	if (queue->front == NULL) {
 		return NULL;
 	}
@@ -85,6 +115,9 @@ const void * que_front(const queueADT queue) {
 	return n->data;
 }
 
+/*
+* get the size of a queue
+*/
 size_t que_size(queueADT queue) {
 	return queue->size;
 }

@@ -11,6 +11,14 @@
 #include "arg_parse.h"
 #include "trimit.h"
 
+
+/*
+* get the amount of tokens in a string
+*
+* @param string  string to parse
+* @param del  delimiter to count on
+* @return number of tokens in string separated my del
+*/
 int tokenCount(char * string, char del) {
 	int count = 0;
 	for (int i = 0; string[i] != '\0'; i++) {
@@ -18,28 +26,23 @@ int tokenCount(char * string, char del) {
 			count++;
 		}
 	}
-	//if (count == 0) {
-	//	return 0;
-	//} else {
-	//	count++;
-	//	return count;
-	//}
 	count++;
 	return count;
 }
 
-
+/*
+* convert a string into a token array
+* tokens are separated by delimiter(s)
+*
+* @param string  string to tokenize
+* @param del  delimiter to separate on
+* @param number of tokens in the string
+* @return array of strings cooresponding to tokens
+*/
 char ** tokenArray(char * string, char * del, int elements) {
-	// make char * of size elements
-	// use strtok to get to split on thing
-	// take that string and use trim
-	// put trimmed string into char[]
-	//if (elements == 0) {
-	//	return NULL;
-	//}
 	char ** tokens = malloc(elements * sizeof(char *));
 	int tokensIdx = 0;
-
+	// case where string is one big token or empty string
 	if ((elements == 1) && (strcmp(string, "") == 0)) {
 		char * emptyString = malloc(strlen(string) * sizeof(char *) + 1);
 		strcpy(emptyString, string);
@@ -65,23 +68,15 @@ char ** tokenArray(char * string, char * del, int elements) {
 	return tokens;
 }
 
+/*
+* free a token array that is alloced in memory
+*
+* @param tokens  array of strings
+* @param tokenCount  size of token array
+*/
 void freeTokenArray(char ** tokens, int tokenCount) {
 	for (int i = 0; i < tokenCount; i++) {
 		free(tokens[i]);
 	}
 	free(tokens);
 }
-
-/*
-int main() {
-	char * thad = "thadeous, tabo  nia, jones, jenkins, jr 3";
-	int i = tokenCount(thad, ',');
-	printf("tokenCount: %d\n", i);
-	char ** tokens = tokenArray(thad, ",", i);
-	printf("tokens[0]: %s\n", tokens[0]);
-	printf("tokens[1]: %s\n", tokens[1]);
-	printf("tokens[4]: %s\n", tokens[4]);
-	freeTokenArray(tokens, i);
-	return 0;
-}
-*/

@@ -1,0 +1,143 @@
+commit 2375f95ed484496adb288383390c6a36e31f4a96
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Sat Nov 30 22:32:08 2019 -0500
+
+    fixed tree_node.c:print_tree() to print members in BFS order
+
+commit 8c486cf92c942ec0f1f97d2d07ef4e1b75e0bdbb
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Sat Nov 30 19:51:57 2019 -0500
+
+    implemented tree_node.c:get_tree_height() function
+
+commit 0e97c472a7e98f4dc9bf721e977a98c0fac43bc1
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 21:08:13 2019 -0500
+
+    implemented get_tree_size function
+
+commit 05ea136c1450090a5e71d605c754581daf59d5ea
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 20:20:37 2019 -0500
+
+    added in conditional checks to finding/printing empty trees
+
+commit 576aaa46e93e02e864c410da68c1e6ee173eaa8a
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 19:49:44 2019 -0500
+
+    fixed queue.c:que_enqueue procedure. Fixed tree_node.c:find_node as a result.
+
+commit 4909b5f4b56550601358c5065b432abeef341c54
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 19:07:59 2019 -0500
+
+    fixed find_node function to exclusivley return node and outsourced printing node to print_offspring_line
+
+commit ed7281eb177060e32979324c7204ea83baa54d4c
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 18:56:54 2019 -0500
+
+    added in proper formatting to find_node and print_tree functions
+
+commit be5c1b5809e349091bba8ae7e61d78ccf14f9e26
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 16:01:42 2019 -0500
+
+    fixed find_node function to display correct offspring
+
+commit 1c38748eb50479b3a0680d3731a25db49768f081
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Fri Nov 29 14:57:27 2019 -0500
+
+    fixed print_tree function to correctly outpuc children in order
+
+commit 65adf78e1e4a73f24a6b7e08291478b3f1104276
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Thu Nov 28 17:36:40 2019 -0500
+
+    added basic formatting to print_tree and find_node
+
+commit 748001f18b0d2180094d6b980952e79afdbb58c5
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Wed Nov 27 23:25:42 2019 -0500
+
+    fixed que_front implementation to work with queueNode. print_tree now works without formatting.
+
+commit 7424abb55f40a318d89755ba1063efcde81cdaa4
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 25 07:45:57 2019 -0500
+
+    added arg_parse.h functions to parse starter files
+
+commit dd8e0b1ddc441c6eff9dedfdce89f9cc06d48608
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 25 07:21:42 2019 -0500
+
+    added command line parsing functiosn in appropriate places and added usage printer functions
+
+commit 6e038711c0a5e952e3a7f02c3b3800d95309a95c
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 25 06:18:16 2019 -0500
+
+    added in function to free allocated storage from arg_parse.h tokenArray
+
+commit 88b2a98368912b64cb2037c376b99791832ce6fe
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Sat Nov 23 10:21:45 2019 -0500
+
+    implemented arg_parse to split up arguments
+
+commit 047fb8e654822efd2fd1c469aebd4f8d92303cae
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Wed Nov 20 07:54:03 2019 -0500
+
+    added shell for executing tree commands
+
+commit ce5caea0684c267381f9002f36081628322474f0
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Wed Nov 20 07:38:43 2019 -0500
+
+    added command line parsing to get tree command
+
+commit 6de8971e66ceef99f6c397442156ab0e87608bab
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Wed Nov 20 06:25:04 2019 -0500
+
+    basic structure of command line loop added
+
+commit 52955251c81d77cd5bec822f8dbbd7130af5077b
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Wed Nov 20 06:24:38 2019 -0500
+
+    implemented queue find and print functions
+
+commit 904541b73dee19fc4faddcc7dae1aee047ba9f68
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 18 21:56:50 2019 -0500
+
+    added file line parsing offspring.c
+
+commit be599862f9c9d4c3e32369db2103cb2caa2e544b
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 18 08:02:53 2019 -0500
+
+    create_node:tree_node.c implemented. tree_node.c functions ready to implement
+
+commit c92d8da2da470fa58c1b2f85b46897554948d20d
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Nov 18 07:40:06 2019 -0500
+
+    implemented queue.c functions
+
+commit e5c81cfec6c6cda93ac4b4f6d563088b018d5d4d
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Sat Nov 16 09:52:06 2019 -0500
+
+    stubbed functions for queue files and tree_node files
+
+commit 96dbc7a115b63fae7eeedc7084308eb9ffd22ee1
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Sat Nov 16 08:37:15 2019 -0500
+
+    initial codebase added and program files created
