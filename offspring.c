@@ -265,18 +265,18 @@ void entryLoop() {
 	printPrompt();
 	while ((line = fgets(buff, MAX_LINE, stdin)) != NULL) {
 		// trim start and end whitespace
-		char * trimmed = trim(line);
+		trim(line);
 		// echo line back to user
-		printf("+ %s\n\n", trimmed);
+		printf("+ %s\n\n", line);
 
 		// gets command in a molloced string
 		// trimmed is modefied and inserts spaces
-		char * command = getCommand(trimmed);
-		// put args into malloced string and free line
-		//TODO getting valgrind error here when calling a command with no parameters as the first command entered
-		char * commandArgs = trim(line);
+		char * command = getCommand(line);
+		// trim line once more to get command args
+		trim(line);
 
-		doCommand(command, commandArgs);
+		// execute command and clean up
+		doCommand(command, line);
 		free(command);
 		printPrompt();
 	}

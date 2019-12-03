@@ -109,6 +109,7 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 	}
 	// cleanup
 	que_destroy(queue);
+	// not found
 	return NULL;
 }
 
