@@ -32,8 +32,11 @@ static tree_node_t * tree = NULL;
 * @param line  parent-child relationship line
 */
 void interpLine(char * line) {
-	//TODO check for single name on first line
 	int argCount = tokenCount(line, ',');
+	if (argCount == 1) {
+		fprintf(stderr, "error: line contains one person and it is not the first line\n");
+		return;
+	}
 	char ** tokens  = tokenArray(line, ",", argCount);
 	for (int i = 1; i < argCount; i++) {
 		tree = add_child(tree, tokens[0], tokens[i]);
@@ -257,7 +260,7 @@ void doCommand(char * command, char * args) {
 * input, execute, cleanup, repeat
 */
 void entryLoop() {
-	char buff[MAX_LINE + 1];\
+	char buff[MAX_LINE];
 	char * line;
 	printPrompt();
 	while ((line = fgets(buff, MAX_LINE, stdin)) != NULL) {
@@ -270,6 +273,7 @@ void entryLoop() {
 		// trimmed is modefied and inserts spaces
 		char * command = getCommand(trimmed);
 		// put args into malloced string and free line
+		//TODO getting valgrind error here when calling a command with no parameters as the first command entered
 		char * commandArgs = trim(line);
 
 		doCommand(command, commandArgs);

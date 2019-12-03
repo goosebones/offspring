@@ -55,7 +55,7 @@ char ** tokenArray(char * string, char * del, int elements) {
 	char * token = strtok(stringCopy, del);
 	while(token != NULL) {
 		if (tokensIdx >= elements) {
-			fprintf(stderr, "Argument parsing error.");
+			fprintf(stderr, "error: could not parse command arguments.");
 			exit(EXIT_FAILURE);
 		}
 		char * trimmed = trim(token);
