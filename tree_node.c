@@ -137,6 +137,27 @@ static void print_tree_help(tree_node_t * tree) {
 * prints out everything below specified person
 */
 void print_tree(tree_node_t * tree, char * name) {
+	if (tree == NULL) {
+		fprintf(stderr, "error: '%s' not found.\n", name);
+		return;
+	}
+	tree_node_t * person = find_node(tree, name);
+	if (person == NULL) {
+		fprintf(stderr, "error: '%s'' not found.\n", name);
+		return;
+	}
+	queueADT queue = que_create();
+	que_enqueue(queue, person);
+	while(que_size(queue) > 0) {
+		tree = (tree_node_t*)que_front(queue);
+		que_dequeue(queue);
+		print_offspring_line(tree);
+		for (int i = 0; i < tree->children; i++) {
+			tree_node_t * childNode = tree->offspring[i];
+			que_enqueue(queue, childNode);
+		}
+	}
+/*
 	// invalid print
 	if (tree == NULL) {
 		fprintf(stderr, "error: '%s' not found.\n", name);
@@ -167,6 +188,7 @@ void print_tree(tree_node_t * tree, char * name) {
 	}
 	// cleanup
 	que_destroy(queue);
+*/
 }
 
 /*

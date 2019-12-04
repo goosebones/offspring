@@ -255,7 +255,7 @@ void doCommand(char * command, char * args) {
 			fprintf(stderr, "Unknown Command: %s\n", command);
 		}
 	}
-
+	// cleanup
 	freeTokenArray(tokens, argCount);
 }
 
