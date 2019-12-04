@@ -249,7 +249,11 @@ void doCommand(char * command, char * args) {
 		exit(EXIT_SUCCESS);
 	// invalid command
 	} else {
-		fprintf(stderr, "Unknown Command: %s\n", command);
+		if (commandIs("EOF", command) ) {
+			;
+		} else {
+			fprintf(stderr, "Unknown Command: %s\n", command);
+		}
 	}
 
 	freeTokenArray(tokens, argCount);

@@ -1,3 +1,15 @@
+commit ec877b03fff1138b7d0e732673a367960db71720
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Tue Dec 3 13:07:44 2019 -0500
+
+    fixed valgrind error of using uninitialized value offspring.c:277
+
+commit 19c0d03c28afe88f614ab5a9b15faa4f04888ad0
+Author: Gunther David Kroth <gdk6217@cs.rit.edu>
+Date:   Mon Dec 2 19:52:08 2019 -0500
+
+    added in check to see if random file lines contain one person
+
 commit dd39e370aae13bedef4b3a03a1f6f9fc9df15bc3
 Author: Gunther David Kroth <gdk6217@cs.rit.edu>
 Date:   Mon Dec 2 07:05:07 2019 -0500
