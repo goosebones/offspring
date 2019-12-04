@@ -114,81 +114,38 @@ tree_node_t * find_node(tree_node_t * tree, char * name) {
 }
 
 /*
-* helper function to print_tree()
-* used to print out the formatted version of each offspring node
-*
-* @param tree  tree_node to print out
-*/
-static void print_tree_help(tree_node_t * tree) {
-	// print formatted line for each person
-	for (int i = 0; i < tree->children; i++) {
-		tree_node_t * childNode = tree->offspring[i];
-		print_offspring_line(childNode);
-	}
-	// recurse on each offspring
-	for (int j = 0; j < tree->children; j++) {
-		tree_node_t * childNode2 = tree->offspring[j];
-		print_tree_help(childNode2);
-	}
-}
-
-/*
 * print out a person in the tree
 * prints out everything below specified person
 */
 void print_tree(tree_node_t * tree, char * name) {
-	if (tree == NULL) {
-		fprintf(stderr, "error: '%s' not found.\n", name);
-		return;
-	}
-	tree_node_t * person = find_node(tree, name);
-	if (person == NULL) {
-		fprintf(stderr, "error: '%s'' not found.\n", name);
-		return;
-	}
-	queueADT queue = que_create();
-	que_enqueue(queue, person);
-	while(que_size(queue) > 0) {
-		tree = (tree_node_t*)que_front(queue);
-		que_dequeue(queue);
-		print_offspring_line(tree);
-		for (int i = 0; i < tree->children; i++) {
-			tree_node_t * childNode = tree->offspring[i];
-			que_enqueue(queue, childNode);
-		}
-	}
-/*
 	// invalid print
 	if (tree == NULL) {
 		fprintf(stderr, "error: '%s' not found.\n", name);
 		return;
 	}
-	// person is not in tree
-	if (find_node(tree, name) == NULL) {
-		fprintf(stderr, "error: '%s' not found.\n", name);
+	// find person to start printing at
+	tree_node_t * person = find_node(tree, name);
+	// person not found
+	if (person == NULL) {
+		fprintf(stderr, "error: '%s'' not found.\n", name);
 		return;
 	}
 	// start BFS
 	queueADT queue = que_create();
-	que_enqueue(queue, tree);
+	que_enqueue(queue, person);
 	while(que_size(queue) > 0) {
 		tree = (tree_node_t*)que_front(queue);
 		que_dequeue(queue);
-		// if person is found
-		if ( (strcmp(tree->name, name) == 0) || (strcmp(name, "") == 0)) {
-			print_offspring_line(tree);
-			print_tree_help(tree);
-		} else {
-			// keep going through each offspring
-			for (int i = 0; i < tree->children; i++) {
-				tree_node_t * childNode = tree->offspring[i];
-				que_enqueue(queue, childNode);
-			}
+		// print this person
+		print_offspring_line(tree);
+		// add its children to queue
+		for (int i = 0; i < tree->children; i++) {
+			tree_node_t * childNode = tree->offspring[i];
+			que_enqueue(queue, childNode);
 		}
 	}
 	// cleanup
 	que_destroy(queue);
-*/
 }
 
 /*

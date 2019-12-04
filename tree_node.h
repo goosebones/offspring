@@ -49,7 +49,7 @@ tree_node_t * find_node(tree_node_t * tree, char * name);
 /*
 * print a tree
 * performs a BFS on tree and prints along the way
-* used pring_offspring_line() as a helper
+* uses pring_offspring_line() as a helper
 *
 * @param tree  target tree to print
 * @param name  person to start at in tree
